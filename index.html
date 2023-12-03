@@ -55,6 +55,11 @@
             <button type="button" id="button" onclick="execCmd('underline')"><u><img src="resources/format_underline_white_192x192.png" width="28" height="18" ></u></button> 
             <button type="button" id="button" onclick="execCmd('italic')"><i><img src="resources/italic-xxl.png" width="15" height="15" ></i></button>
 
+            <label for="font-color-picker" class="color-picker-label">
+                <input type="color" class="color-picker" id="font-color-picker" onchange="changeFontColor(this.value)">
+                <img src="resources/Font-color-icon.png" width="24" height="20">
+            </label>
+
 
         </div>
     </center>
@@ -72,6 +77,18 @@
         document.execCommand(command, false, value);
         saveState();
     }
+    function changeFontColor(selectedColor) {
+        document.execCommand('foreColor', false, selectedColor);
+        saveState(); 
+    }
+
+    
+
+    editor.addEventListener('paste', (event) => {
+        event.preventDefault(); 
+        const pastedText = (event.clipboardData || window.clipboardData).getData('text');
+        document.execCommand('insertText', false, pastedText);
+    });
     
     
     </script>
